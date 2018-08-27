@@ -134,7 +134,7 @@ if ( isset( $_GET['action'] ) ) {
 				$files = scandir( 'wordpress' );
 
 				// We remove the "." and ".." from the current folder and its parent
-				$files = array_diff( $files, array( '.', '..' ) );
+				$files = array_diff( $files, array( '.', '..', 'index.php' ) );
 
 				// We move the files and folders
 				foreach ( $files as $file ) {
@@ -501,7 +501,7 @@ if ( isset( $_GET['action'] ) ) {
 				$plugins = scandir( 'plugins' );
 
 				// We remove the "." and ".." corresponding to the current and parent folder
-				$plugins = array_diff( $plugins, array( '.', '..' ) );
+				$plugins = array_diff( $plugins, array( '.', '..', 'index.php' ) );
 
 				// We move the archives and we unzip
 				foreach ( $plugins as $plugin ) {
