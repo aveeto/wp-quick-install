@@ -160,7 +160,7 @@ if ( isset( $_GET['action'] ) ) {
 			/*--------------------------*/
 	
 			// We retrieve each line as an array
-			$config_file = file( $directory . 'wp-config-sample.php' );
+			$config_file = file( $directory . 'wp-config.php' );
 	
 			// Managing the security keys
 			$secret_keys = explode( "\n", file_get_contents( 'https://api.wordpress.org/secret-key/1.1/salt/' ) );
@@ -241,16 +241,24 @@ if ( isset( $_GET['action'] ) ) {
 			
 						break;
 					case 'DB_NAME'     :
-						$line = "define('DB_NAME', '" . sanit( $_POST[ 'dbname' ] ) . "');\r\n";
+						if(!empty($_POST[ 'dbname' ])) {
+							$line = "define('DB_NAME', '" . sanit( $_POST[ 'dbname' ] ) . "');\r\n";
+						}
 						break;
 					case 'DB_USER'     :
-						$line = "define('DB_USER', '" . sanit( $_POST['uname'] ) . "');\r\n";
+						if(!empty($_POST[ 'uname' ])) {
+							$line = "define('DB_USER', '" . sanit( $_POST['uname'] ) . "');\r\n";
+						}
 						break;
 					case 'DB_PASSWORD' :
-						$line = "define('DB_PASSWORD', '" . sanit( $_POST['pwd'] ) . "');\r\n";
+						if(!empty($_POST[ 'pwd' ])) {
+							$line = "define('DB_PASSWORD', '" . sanit( $_POST['pwd'] ) . "');\r\n";
+						}
 						break;
 					case 'DB_HOST'     :
-						$line = "define('DB_HOST', '" . sanit( $_POST['dbhost'] ) . "');\r\n";
+						if(!empty($_POST[ 'dbhost' ])) {
+							$line = "define('DB_HOST', '" . sanit( $_POST['dbhost'] ) . "');\r\n";
+						}
 						break;
 					case 'AUTH_KEY'         :
 					case 'SECURE_AUTH_KEY'  :
@@ -261,10 +269,6 @@ if ( isset( $_GET['action'] ) ) {
 					case 'LOGGED_IN_SALT'   :
 					case 'NONCE_SALT'       :
 						$line = "define('" . $constant . "', '" . $secret_keys[$key++] . "');\r\n";
-						break;
-	
-					case 'WPLANG' :
-						$line = "define('WPLANG', '" . sanit( $_POST['language'] ) . "');\r\n";
 						break;
 						
 				}
