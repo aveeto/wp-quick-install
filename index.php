@@ -172,8 +172,8 @@ if ( isset( $_GET['action'] ) ) {
 			// We change the data
 			$key = 0;
 			foreach ( $config_file as &$line ) {
-	
-				if ( '$table_prefix  =' == substr( $line, 0, 16 ) ) {
+					
+				if ( !empty($_POST[ 'prefix' ]) && '$table_prefix  =' == substr( $line, 0, 16 ) ) {
 					$line = '$table_prefix  = \'' . sanit( $_POST[ 'prefix' ] ) . "';\r\n";
 					continue;
 				}
